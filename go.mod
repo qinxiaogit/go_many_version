@@ -1,4 +1,4 @@
-module gitee.com/qin_xiao/go_many_version/v0
+module gitee.com/qin_xiao/go_many_version/v1
 
 go 1.14
 

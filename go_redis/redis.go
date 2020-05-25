@@ -1,7 +1,8 @@
 package go_redis
 
 import (
-"github.com/go-redis/redis/v7"
+	"fmt"
+	"github.com/go-redis/redis/v7"
 "time"
 )
 
@@ -9,6 +10,7 @@ import (
 redis连接池
 */
 func NewRedisClient(Addr string, PoolSize int, db int, Password string) *redis.Client {
+	fmt.Println("v1 go mod")
 	if Addr == "" {
 		Addr = ":6379"
 	}
