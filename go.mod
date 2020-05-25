@@ -1,4 +1,4 @@
-module gitee.com/qin_xiao/go_many_version/v2
+module github.com/qin_xiao/go_many_version/v2
 
 go 1.14
 
