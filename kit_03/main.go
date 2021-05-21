@@ -4,7 +4,7 @@ import (
 	"context"
 	"flag"
 	"github.com/go-kit/kit/examples/addsvc/pkg/addendpoint"
-	"addService"
+	"github.com/qinxiaogit/go_many_version/kit_03/addService"
 	"github.com/go-kit/kit/examples/addsvc/pkg/addservice"
 	"github.com/go-kit/kit/log"
 	"github.com/gorilla/mux"
