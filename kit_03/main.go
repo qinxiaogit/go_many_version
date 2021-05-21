@@ -5,7 +5,6 @@ import (
 	"flag"
 	"github.com/go-kit/kit/examples/addsvc/pkg/addendpoint"
 	"github.com/qinxiaogit/go_many_version/kit_03/addService"
-	"github.com/go-kit/kit/examples/addsvc/pkg/addservice"
 	"github.com/go-kit/kit/log"
 	"github.com/gorilla/mux"
 	"github.com/hashicorp/consul/api"
@@ -61,9 +60,9 @@ func main(){
 		)
 
 		{
-			factory :=  addsvcfa
+			factory :=  addsvcfaFactory(addendpoint.MakeConcatEndpoint)
 		}
 	}
 }
 
-func addsvcfaFactory(makeEndpoint func(service addservice.Service))
+func addsvcfaFactory(makeEndpoint func(service addService.Service))
