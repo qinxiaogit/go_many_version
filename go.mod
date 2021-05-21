@@ -1,5 +1,7 @@
-module github.com/qinxiaogit/go_many_version/v2
-
+module github.com/qinxiaogit/go_many_version
 go 1.14
 
-require github.com/go-redis/redis/v7 v7.3.0
+require (
+	github.com/go-cmd/cmd v1.3.0
+	github.com/prometheus/client_golang v1.10.0
+)
