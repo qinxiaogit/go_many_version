@@ -3,11 +3,15 @@ package main
 import (
 	"context"
 	"flag"
-	"github.com/go-kit/kit/examples/addsvc/pkg/addendpoint"
+	"github.com/go-kit/kit/endpoint"
+	"github.com/go-kit/kit/examples/addsvc/pkg/addtransport"
+	"github.com/go-kit/kit/sd"
 	"github.com/qinxiaogit/go_many_version/kit_03/addService"
 	"github.com/go-kit/kit/log"
 	"github.com/gorilla/mux"
 	"github.com/hashicorp/consul/api"
+	"google.golang.org/grpc"
+	"io"
 	"os"
 	"time"
 	consulsd "github.com/go-kit/kit/sd/consul"
@@ -61,8 +65,18 @@ func main(){
 
 		{
 			factory :=  addsvcfaFactory(addendpoint.MakeConcatEndpoint)
+			endpointer := sd.NewEndpointer(instancer, factory, logger)
+
 		}
 	}
 }
 
-func addsvcfaFactory(makeEndpoint func(service addService.Service))
+func addsvcfaFactory(makeEndpoint func(service addService.Service)endpoint.Endpoint,tracer stdopentracing.Tracer,zipkinTracer *stdzipkin.Tracer,logger log.Logger)sd.Factory{
+	return func(instance string) (endpoint.Endpoint,io.Closer,error){
+		conn,err := grpc.Dial(instance,grpc.WithInsecure())
+		if err != nil{
+			return nil,nil,err
+		}
+		service := addtransport.NewGRPCClient()
+	}
+}
