@@ -237,6 +237,8 @@ github.com/prometheus/procfs v0.0.2/go.mod h1:TjEm7ze935MbeOT/UhFTIMYKhuLP4wbCsT
 github.com/prometheus/procfs v0.0.8/go.mod h1:7Qr8sr6344vo1JqZ6HhLceV9o3AJ1Ff+GxbHq6oeK9A=
 github.com/qinxiaogit/go_many_version/kit_03/addService v0.0.0-20210521035613-19ff11af993f h1:1P94RG930PniFydewlzmICF8M1spxZgz3/eYqqmjlFU=
 github.com/qinxiaogit/go_many_version/kit_03/addService v0.0.0-20210521035613-19ff11af993f/go.mod h1:12A39sltgcWdyw7G+S0yGLLCbQKC2OBg5e92hbt/XVs=
+github.com/qinxiaogit/go_many_version/kit_03/addtransport v0.0.0-20210524032933-7e73a97ca1eb h1:VgUeb1nnOV6cxyASJ4Dvtvidz7BDmNy0uoHPwxsl5CA=
+github.com/qinxiaogit/go_many_version/kit_03/addtransport v0.0.0-20210524032933-7e73a97ca1eb/go.mod h1:JeBgaP9nu9zfYppQyY8Vv3EaAENfGGdoWgxDUgIbdr4=
 github.com/rcrowley/go-metrics v0.0.0-20181016184325-3113b8401b8a/go.mod h1:bCqnVzQkZxMG4s8nGwiZ5l3QUCyqpo9Y+/ZMZ9VjZe4=
 github.com/rogpeppe/fastuuid v0.0.0-20150106093220-6724a57986af/go.mod h1:XWv6SoW27p1b0cqNHllgS5HIMJraePCO15w5zCzIWYg=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=

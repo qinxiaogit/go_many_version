@@ -6,8 +6,10 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	 "github.com/qinxiaogit/go_many_version/kit_03/addService"
+	"github.com/go-kit/kit/examples/addsvc/pkg/addservice"
+	_ "github.com/qinxiaogit/go_many_version/kit_03/addService"
 	 "github.com/qinxiaogit/go_many_version/kit_03/addtransport"
+	 "github.com/qinxiaogit/go_many_version/kit_03/adden"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -107,7 +109,7 @@ func main() {
 		// HTTP handler, and just install it under a particular path prefix in
 		// our router.
 
-		r.PathPrefix("/addsvc").Handler(http.StripPrefix("/addsvc", addtransport.NewHTTPHandler(endpoints, tracer, zipkinTracer, logger)))
+		r.PathPrefix("/addsvc").Handler(http.StripPrefix("/addsvc", addtransport.NewHTTPHandle(endpoints, tracer, zipkinTracer, logger)))
 	}
 
 	// stringsvc routes.
@@ -177,7 +179,7 @@ func addsvcFactory(makeEndpoint func(addservice.Service) endpoint.Endpoint, trac
 		if err != nil {
 			return nil, nil, err
 		}
-		service := addtransport.NewGRPCClient(conn, tracer, zipkinTracer, logger)
+		service := addtransport.NewGrpcClient(conn, tracer, zipkinTracer, logger)
 		endpoint := makeEndpoint(service)
 
 		// Notice that the addsvc gRPC client converts the connection to a
