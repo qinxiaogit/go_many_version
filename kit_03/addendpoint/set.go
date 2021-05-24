@@ -72,7 +72,7 @@ func New(svc addService.Service,logger log.Logger, duration metrics.Histogram,ot
 	}
 }
 
-func MakeSumEndpoint(s addservice.Service)endpoint.Endpoint{
+func MakeSumEndpoint(s addService.Service)endpoint.Endpoint{
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
 		req := request.(SumRequest)
 		v,err := s.Sum(ctx,req.A,req.B)
@@ -80,7 +80,7 @@ func MakeSumEndpoint(s addservice.Service)endpoint.Endpoint{
 	}
 }
 
-func MakeConcatEndpoint(s addservice.Service) endpoint.Endpoint{
+func MakeConcatEndpoint(s addService.Service) endpoint.Endpoint{
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
 		req := request.(ConcatRequest)
 		v,err := s.Concat(ctx,req.A,req.B)

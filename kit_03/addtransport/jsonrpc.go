@@ -6,19 +6,20 @@ import (
 	"fmt"
 	"github.com/go-kit/kit/circuitbreaker"
 	"github.com/go-kit/kit/endpoint"
-	"github.com/go-kit/kit/examples/addsvc/pkg/addservice"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/ratelimit"
 	"github.com/go-kit/kit/tracing/opentracing"
 	"github.com/go-kit/kit/transport/http/jsonrpc"
 	stdopentracing "github.com/opentracing/opentracing-go"
-	_ "github.com/qinxiaogit/go_many_version/kit_03/addService"
+
 	"github.com/sony/gobreaker"
 	"golang.org/x/time/rate"
-	"kit_03/addendpoint"
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/qinxiaogit/go_many_version/kit_03/addService"
+	"github.com/qinxiaogit/go_many_version/kit_03/addendpoint"
 )
 
 func NewJSONRPCHandler(endpoints addendpoint.Set, logger log.Logger) *jsonrpc.Server {
@@ -33,7 +34,7 @@ func NewJSONRPCHandler(endpoints addendpoint.Set, logger log.Logger) *jsonrpc.Se
 // living at the remote instance. We expect instance to come from a service
 // discovery system, so likely of the form "host:port". We bake-in certain
 // middlewares, implementing the client library pattern.
-func NewJSONRPCClient(instance string, tracer stdopentracing.Tracer, logger log.Logger) (addservice.Service, error) {
+func NewJSONRPCClient(instance string, tracer stdopentracing.Tracer, logger log.Logger) (addService.Service, error) {
 	// Quickly sanitize the instance string.
 	if !strings.HasPrefix(instance, "http") {
 		instance = "http://" + instance

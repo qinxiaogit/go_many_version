@@ -9,7 +9,7 @@ import (
 	"github.com/go-kit/kit/examples/addsvc/pkg/addservice"
 	_ "github.com/qinxiaogit/go_many_version/kit_03/addService"
 	 "github.com/qinxiaogit/go_many_version/kit_03/addtransport"
-	 "github.com/qinxiaogit/go_many_version/kit_03/adden"
+	 "github.com/qinxiaogit/go_many_version/kit_03/addendpoint"
 	"io"
 	"io/ioutil"
 	"net/http"

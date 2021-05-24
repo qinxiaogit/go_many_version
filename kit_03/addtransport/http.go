@@ -7,7 +7,6 @@ import (
 	"errors"
 	"github.com/go-kit/kit/circuitbreaker"
 	"github.com/go-kit/kit/endpoint"
-	"github.com/qinxiaogit/go_many_version/kit_03/addService"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/ratelimit"
 	"github.com/go-kit/kit/tracing/opentracing"
@@ -19,11 +18,14 @@ import (
 	"github.com/sony/gobreaker"
 	"golang.org/x/time/rate"
 	"io/ioutil"
-	"github.com/qinxiaogit/go_many_version/kit_03/addendpoint"
+
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/qinxiaogit/go_many_version/kit_03/addService"
+	"github.com/qinxiaogit/go_many_version/kit_03/addendpoint"
 )
 
 func NewHTTPHandle(endpoints addendpoint.Set,otTracer stdopentracing.Tracer,zipkinTracer *stdzipkin.Tracer,logger log.Logger)http.Handler  {
