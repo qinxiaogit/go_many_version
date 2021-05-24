@@ -19,8 +19,8 @@ import (
 
 	stdopentracing "github.com/opentracing/opentracing-go"
 	stdzipkin "github.com/openzipkin/zipkin-go"
-	"github.com/qinxiaogit/go_many_version/kit_03/pb"
-	"github.com/qinxiaogit/go_many_version/kit_03/addservice"
+	"kit_03/addservice"
+	"kit_03/pb"
 )
 
 type grpcService struct {
@@ -61,7 +61,7 @@ func NewGrpcServer(endpoints addendpoint.Set,otTracer stdopentracing.Tracer,zipk
 	}
 }
 
-func NewGrpcClient(conn *grpc.ClientConn,otTracer stdopentracing.Tracer,zipinTracer *stdzipkin.Tracer,logger log.Logger)addservice.Service{
+func NewGrpcClient(conn *grpc.ClientConn,otTracer stdopentracing.Tracer,zipinTracer *stdzipkin.Tracer,logger log.Logger)addService.Service{
 	limiter := ratelimit.NewErroringLimiter(rate.NewLimiter(rate.Every(time.Second),100))
 
 	var options []grpctransport.ClientOption
