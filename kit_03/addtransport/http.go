@@ -24,7 +24,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qinxiaogit/go_many_version/kit_03/addService"
+	addservice "github.com/qinxiaogit/go_many_version/kit_03/addService"
 	"github.com/qinxiaogit/go_many_version/kit_03/addendpoint"
 )
 

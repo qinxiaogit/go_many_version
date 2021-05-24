@@ -13,5 +13,4 @@ require (
 	github.com/qinxiaogit/go_many_version/kit_03/addendpoint v0.0.0-20210524034708-6d522c20094c
 	github.com/qinxiaogit/go_many_version/kit_03/addtransport v0.0.0-20210524032933-7e73a97ca1eb
 	google.golang.org/grpc v1.26.0
-	google.golang.org/protobuf v1.26.0
 )

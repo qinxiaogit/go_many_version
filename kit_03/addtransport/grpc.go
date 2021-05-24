@@ -11,15 +11,15 @@ import (
 	"github.com/go-kit/kit/tracing/zipkin"
 	"github.com/go-kit/kit/transport"
 	grpctransport "github.com/go-kit/kit/transport/grpc"
-	"github.com/sony/gobreaker"
-	"golang.org/x/time/rate"
-	"google.golang.org/grpc"
-	"time"
 	stdopentracing "github.com/opentracing/opentracing-go"
 	stdzipkin "github.com/openzipkin/zipkin-go"
 	"github.com/qinxiaogit/go_many_version/kit_03/addService"
 	"github.com/qinxiaogit/go_many_version/kit_03/addendpoint"
 	"github.com/qinxiaogit/go_many_version/kit_03/pb"
+	"github.com/sony/gobreaker"
+	"golang.org/x/time/rate"
+	"google.golang.org/grpc"
+	"time"
 )
 
 type grpcService struct {
@@ -60,7 +60,7 @@ func NewGrpcServer(endpoints addendpoint.Set,otTracer stdopentracing.Tracer,zipk
 	}
 }
 
-afunc NewGrpcClient(conn *grpc.ClientConn,otTracer stdopentracing.Tracer,zipinTracer *stdzipkin.Tracer,logger log.Logger)addService.Service{
+func NewGrpcClient(conn *grpc.ClientConn,otTracer stdopentracing.Tracer,zipinTracer *stdzipkin.Tracer,logger log.Logger)addService.Service{
 	limiter := ratelimit.NewErroringLimiter(rate.NewLimiter(rate.Every(time.Second),100))
 
 	var options []grpctransport.ClientOption
