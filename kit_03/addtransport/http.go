@@ -18,13 +18,11 @@ import (
 	"github.com/sony/gobreaker"
 	"golang.org/x/time/rate"
 	"io/ioutil"
-
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
-
-	addservice "github.com/qinxiaogit/go_many_version/kit_03/addService"
+	"github.com/qinxiaogit/go_many_version/kit_03/addService"
 	"github.com/qinxiaogit/go_many_version/kit_03/addendpoint"
 )
 
@@ -58,7 +56,7 @@ func NewHTTPHandle(endpoints addendpoint.Set,otTracer stdopentracing.Tracer,zipk
 // remote instance. We expect instance to come from a service discovery system,
 // so likely of the form "host:port". We bake-in certain middlewares,
 // implementing the client library pattern.
-func NewHTTPClient(instance string, otTracer stdopentracing.Tracer, zipkinTracer *stdzipkin.Tracer, logger log.Logger) (addservice.Service, error) {
+func NewHTTPClient(instance string, otTracer stdopentracing.Tracer, zipkinTracer *stdzipkin.Tracer, logger log.Logger) (addService.Service, error) {
 	// Quickly sanitize the instance string.
 	if !strings.HasPrefix(instance, "http") {
 		instance = "http://" + instance
@@ -152,7 +150,7 @@ func errorEncoder(_ context.Context,err error,w http.ResponseWriter){
 
 func err2code(err error)int{
 	switch err {
-	case addservice.ErrTwoZeroes,addservice.ErrMaxSizeExceeded,addservice.ErrIntOverflow:
+	case addService.ErrTwoZeroes,addService.ErrMaxSizeExceeded,addService.ErrIntOverflow:
 		return http.StatusBadRequest
 	}
 	return http.StatusInternalServerError
