@@ -7,8 +7,8 @@ import (
 	"flag"
 	"fmt"
 	addservice "github.com/qinxiaogit/go_many_version/kit_03/addService"
-	 "github.com/qinxiaogit/go_many_version/kit_03/addtransport"
-	 "github.com/qinxiaogit/go_many_version/kit_03/addendpoint"
+	"github.com/qinxiaogit/go_many_version/kit_03/addendpoint"
+	"github.com/qinxiaogit/go_many_version/kit_03/addtransport"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -24,6 +24,7 @@ import (
 	"github.com/hashicorp/consul/api"
 	stdopentracing "github.com/opentracing/opentracing-go"
 	stdzipkin "github.com/openzipkin/zipkin-go"
+	stdzipkinHttp "github.com/openzipkin/zipkin-go/reporter/http"
 	"google.golang.org/grpc"
 
 	"github.com/go-kit/kit/endpoint"
@@ -31,7 +32,6 @@ import (
 	"github.com/go-kit/kit/sd"
 	"github.com/go-kit/kit/sd/lb"
 	httptransport "github.com/go-kit/kit/transport/http"
-
 )
 
 func main() {
@@ -68,7 +68,16 @@ func main() {
 
 	// Transport domain.
 	tracer := stdopentracing.GlobalTracer() // no-op
-	zipkinTracer, _ := stdzipkin.NewTracer(nil, stdzipkin.WithNoopTracer(true))
+
+	newRecoder  := stdzipkinHttp.NewReporter("http://localhost:9411/api/v2/spans")
+
+	//collector, err := stdzipkin.NewHTTPCollector("http://127.0.0.1:9411/api/v1/spans")
+	//if err != nil {
+	//	log.Fatal(err.Error())
+	//	return nil, opts, err
+	//}
+
+	zipkinTracer, _ := stdzipkin.NewTracer(newRecoder, stdzipkin.WithNoopTracer(true))
 	ctx := context.Background()
 	r := mux.NewRouter()
 
@@ -159,7 +168,10 @@ func main() {
 
 	// HTTP transport.
 	go func() {
-		logger.Log("transport", "HTTP", "addr", *httpAddr)
+		err := logger.Log("transport", "HTTP", "addr", *httpAddr)
+		if err != nil {
+			return
+		}
 		errc <- http.ListenAndServe(*httpAddr, r)
 	}()
 
@@ -194,6 +206,7 @@ func addsvcFactory(makeEndpoint func(addservice.Service) endpoint.Endpoint, trac
 
 func stringsvcFactory(ctx context.Context, method, path string) sd.Factory {
 	return func(instance string) (endpoint.Endpoint, io.Closer, error) {
+		fmt.Println("instance:",instance)
 		if !strings.HasPrefix(instance, "http") {
 			instance = "http://" + instance
 		}
@@ -280,6 +293,7 @@ func decodeCountRequest(ctx context.Context, req *http.Request) (interface{}, er
 	var request struct {
 		S string `json:"s"`
 	}
+
 	if err := json.NewDecoder(req.Body).Decode(&request); err != nil {
 		return nil, err
 	}
